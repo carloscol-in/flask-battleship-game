@@ -12,7 +12,7 @@ There are tests setup to validate the requirements of the exercise. Below, there
 
 The results from these tests are not the main factor to evaluate the solution. Instead, the code implementation and design will be evaluated, but it doesn't hurt that the tests pass.
 
-Unit tests are an important factor for our projects. Writting unit tests for the solution is a big plus. The unit tests should be written in the `test` folder, and can be executed using the `bolt ut` command. 
+Unit tests are an important factor for our projects. Writting unit tests for the solution is a big plus. The unit tests should be written in the `test` folder, and can be executed using the `bolt ut` command.
 
 You can run the unit tests and have them monitor changes using the `bolt ct` command. The tests will be executed every time changes are saved.
 
@@ -28,17 +28,17 @@ $ pip install -r requirements.txt
 
 There are some commands that you can run to help you during development:
 
-* `bolt ut` will run the unit test located in the test folder. The project uses nose to run the tests, but the tests can be implemented with the `unittest` module in Python.
-* `bolt ct` will run the unit tests and wait for file changes. You can use the command to follow TDD during development. The command can be killed with `<ctrl+c>`.
-* `bolt ft` will run the feature tests. The feature tests validate the requirements of the exercise, so you can use them to verify that your code works against the specification.
+- `bolt ut` will run the unit test located in the test folder. The project uses nose to run the tests, but the tests can be implemented with the `unittest` module in Python.
+- `bolt ct` will run the unit tests and wait for file changes. You can use the command to follow TDD during development. The command can be killed with `<ctrl+c>`.
+- `bolt ft` will run the feature tests. The feature tests validate the requirements of the exercise, so you can use them to verify that your code works against the specification.
 
 ## The Problem
 
 The exercise is to implement the Battleship Game from the perspective of a single user. The game exposes and endpoint `http://localhost:/5000/battleship` that supports three HTTP methods:
 
-* `POST` Creates a new game. The payload contains the ships for the game (more on this below).
-* `PUT` Used to specify a shot against the game. The payload contains the coordinates for the shot.
-* `DELETE` Deletes the current game.
+- `POST` Creates a new game. The payload contains the ships for the game (more on this below).
+- `PUT` Used to specify a shot against the game. The payload contains the coordinates for the shot.
+- `DELETE` Deletes the current game.
 
 All the functions for the endpoints have already been provided in the `/battleship/api.py` file. You need to fill the implementation.
 
@@ -50,32 +50,32 @@ A new game will be created by a `POST` request to the endpoint. The payload will
 
 ```json
 {
-    "ships": [
-        {
-            "x": 2,
-            "y": 1,
-            "size": 4,
-            "direction": "H"
-        },
-        {
-            "x": 7,
-            "y": 4,
-            "size": 3,
-            "direction": "V"
-        },
-        {
-            "x": 3,
-            "y": 5,
-            "size": 2,
-            "direction": "V"
-        },
-        {
-            "x": 6,
-            "y": 8,
-            "size": 1,
-            "direction": "H"
-        }
-    ]
+  "ships": [
+    {
+      "x": 2,
+      "y": 1,
+      "size": 4,
+      "direction": "H"
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "size": 3,
+      "direction": "V"
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "size": 2,
+      "direction": "V"
+    },
+    {
+      "x": 6,
+      "y": 8,
+      "size": 1,
+      "direction": "H"
+    }
+  ]
 }
 ```
 
@@ -97,20 +97,20 @@ The following scenarios should be considered:
 
 ```json
 {
-    "ships": [
-        {
-            "x": 5,
-            "y": 5,
-            "size": 4,
-            "direction": "H"
-        },
-        {
-            "x": 7,
-            "y": 4,
-            "size": 3,
-            "direction": "V"
-        }
-    ]
+  "ships": [
+    {
+      "x": 5,
+      "y": 5,
+      "size": 4,
+      "direction": "H"
+    },
+    {
+      "x": 7,
+      "y": 4,
+      "size": 3,
+      "direction": "V"
+    }
+  ]
 }
 ```
 
@@ -122,8 +122,8 @@ The game is played by sending `PUT` requests to the endpoint. The payload will c
 
 ```json
 {
-    "x": 5,
-    "y": 4
+  "x": 5,
+  "y": 4
 }
 ```
 
@@ -131,16 +131,16 @@ The endpoint should return a response payload indicating the result:
 
 ```json
 {
-    "result": "WATER"
+  "result": "WATER"
 }
 ```
 
 The result value should follow these rules:
 
-* A missing shot should return a result of "WATER".
-* A hit shot should return a result of "HIT".
-* A hit for the last piece of a ship should return "SINK"
-* Hitting an already sinked ship should return "HIT"
+- A missing shot should return a result of "WATER".
+- A hit shot should return a result of "HIT".
+- A hit for the last piece of a ship should return "SINK"
+- Hitting an already sinked ship should return "HIT"
 
 All these responses should return a status of OK.
 
