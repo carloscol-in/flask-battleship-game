@@ -26,10 +26,10 @@ GAMES = {}
 def create_battleship_game():
     ships = json.loads(request.data)
 
-    current_game_id = session.get('game_id', None)
-    if current_game_id:
-        del GAMES[current_game_id]
-        session.pop('game_id', None)
+    # current_game_id = session.get('game_id', None)
+    # if current_game_id:
+    #     del GAMES[current_game_id]
+    #     session.pop('game_id', None)
 
     try:
         battleship = Battleship(ships=ships, board=(10, 10))
@@ -46,7 +46,7 @@ def create_battleship_game():
         message = "There's missing data"
         http_status = HTTPStatus.BAD_REQUEST
     else:
-        message = ""
+        message = "Game created successfully"
         http_status = HTTPStatus.OK
 
         # add game to session variable, games
@@ -56,20 +56,27 @@ def create_battleship_game():
         
         print(f"New Game! -> {session['game_id']}")
 
+    response = {
+        'result': message,
+        'game_id': game_id
+    }
 
-    return jsonify({'result': message}), http_status
+    return jsonify(response), http_status
 
 
 @app.route('/battleship', methods=['PUT'])
 def shot():
-    xy_data = json.loads(request.data)
+    data = json.loads(request.data)
 
-    game_id = session.get('game_id', None)
+    xy_pos = data['positions']
+
+    # game_id = session.get('game_id', None)
+    game_id = data['game_id']
 
     battleship = GAMES[ game_id ]
 
     try:
-        result = battleship.hit( **xy_data )
+        result = battleship.hit( **xy_pos )
     except battleship_exceptions.ShotOutOfBoardException:
         result = {}
         http_status = HTTPStatus.BAD_REQUEST
@@ -81,13 +88,22 @@ def shot():
 
 @app.route('/battleship', methods=['DELETE'])
 def delete_battleship_game():
-    game_id = session.get('game_id', None)
+    # game_id = session.get('game_id', None)
     http_status = HTTPStatus.BAD_REQUEST
 
-    if game_id:
+    data = json.loads(request.data)
+    game_id = data.get('game_id', None)
+
+    response = {}
+
+    if game_id in GAMES:
         # there's a game to delete
         print(f"Deleting game -> {game_id}")
         del GAMES[game_id]
-        session.pop('game_id', None)
         http_status = HTTPStatus.OK
-    return jsonify({}), http_status
+
+        response.update({
+            'response': f"Game with ID {game_id} deleted. {len(GAMES)} games remaining.",
+        })
+
+    return jsonify(response), http_status
