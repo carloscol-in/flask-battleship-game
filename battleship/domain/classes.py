@@ -59,7 +59,6 @@ class Fleet:
     
     This class can check if ships collide with each other.
     """
-
     def __init__(self, ships: Dict, board: Tuple[int, int] = (10, 10)):
         self.board = board
         self.positions = {}
