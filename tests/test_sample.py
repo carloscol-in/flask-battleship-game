@@ -2,9 +2,7 @@ import unittest
 
 
 class TestSampleClass(unittest.TestCase):
-
-    def test_should_fail(self):
-        self.fail('You should remove this test')
+    pass
         
 
 if __name__=="__main__":

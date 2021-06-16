@@ -3,3 +3,4 @@ bolt-ta
 conttest
 flask
 nose
+numpy
