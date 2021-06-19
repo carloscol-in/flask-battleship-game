@@ -2,6 +2,7 @@ PLAY_BATTLESHIP_FEATURE = 'Play Battleship Game'
 
 def before_feature(context, feature):
     if feature.name == PLAY_BATTLESHIP_FEATURE:
+        print('---------- Creating game ---------------')
         create_game(context)
 
 

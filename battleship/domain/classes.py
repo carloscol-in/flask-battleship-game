@@ -122,6 +122,9 @@ class Fleet:
         if len(self.hits) == 0:
             return False
 
+        if ship_id not in self.hits:
+            return False
+
         if len(self.positions[ship_id]) != len(self.hits[ship_id]):
             return False
 
